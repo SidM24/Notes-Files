@@ -4,11 +4,10 @@ const User = require("../models/User")
 const { validationResult, body } = require('express-validator');
 var bcrypt = require("bcryptjs")
 var jwt = require("jsonwebtoken")
-
 const JWT_SECRET = "SignedBy%Dr@Legend%"
 
+//Creating a new user using the /api/auth/createuser endpoint
 
-//Creating a new user using the /api/auth/createuser request
 router.post('/createuser', [
     body('username').isLength({ min: 5 }),
     body('name', 'enter a valid name').isLength({ min: 3 }),
@@ -59,10 +58,10 @@ router.post('/createuser', [
         }
     })
 
-//Logging a user to the website using the /api/auth/login route
+//Logging a user to the website using the /api/auth/login endpoint
+
 router.post('/login', [
-    // body('username'),
-    body('email', "Please enter a valid email id").isEmail(),
+    body('loginId', "Please enter a login id").exists(),
     body('password', "Password cannot be blank").exists()
 ],
     async (req, res) => {
@@ -72,32 +71,43 @@ router.post('/login', [
         }
         else {
             //Checking if the user exists on our database
-            const { email, password } = req.body
-
-            try {
-                let user = await User.findOne({ email })
-                if (!user) {
-                    return res.status(400).json({ errors: "Invalid email" })
-                }
-
-                const passwordCompare = await bcrypt.compare(password, user.password)
-                if (!passwordCompare) {
-                    return res.status(400).json({ errors: "Invalid password entered" })
-                }
-                //data stores the payload or the static info of the user that has just been authenticated to enter
-                const data = {
-                    id: user.id
-                }
-                //generating a token to be used to access different sections of the website
-                const authToken = jwt.sign(data, JWT_SECRET)
-                res.json({ authToken })
-
-            } catch (error) {
-                console.error(error.message)
-                res.status(500).send("Some internal server error occured")
+            const { loginId, password } = req.body
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            //If the user has entered the email id
+            let query = {}
+            if (validRegex.test(loginId)) {
+                query = { email: loginId }
             }
-
+            //The user has entered his user name
+            else {
+                query = { username: loginId }
+            }
+            authenticate(password, res, query)
         }
     })
+
+//Common function to authenticate the user using the username/email and password
+async function authenticate(password, res, query) {
+    try {
+        let user = await User.findOne(query)
+        if (!user) {
+            return res.status(400).json({ errors: `Invalid username/email` })
+        }
+        const passwordCompare = await bcrypt.compare(password, user.password)
+        if (!passwordCompare) {
+            return res.status(400).json({ errors: "Invalid password entered" })
+        }
+        //data stores the payload or the static info of the user that has just been authenticated to enter
+        const data = {
+            id: user.id
+        }
+        //generating a token to be used to access different sections of the website
+        const authToken = jwt.sign(data, JWT_SECRET)
+        res.json({ authToken })
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send("Some internal server error occured")
+    }
+}
 
 module.exports = router

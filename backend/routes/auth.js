@@ -5,6 +5,7 @@ const { validationResult, body } = require('express-validator');
 var bcrypt = require("bcryptjs")
 var jwt = require("jsonwebtoken")
 const JWT_SECRET = "SignedBy%Dr@Legend%"
+const fetchuser = require('../middleware/userinfo')
 
 //Creating a new user using the /api/auth/createuser endpoint
 
@@ -110,4 +111,23 @@ async function authenticate(password, res, query) {
     }
 }
 
+
+// Getting user info using the token created /api/auth/getuser
+
+router.post('/getuser', fetchuser, async (req, res) => {
+    try {
+        //Receiving the user a logged in user using fetchuser middleware
+        const userId = req.user
+        const user = await User.findById(userId).select("-password")
+        res.send(user)
+
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send("Some internal server error occured")
+    }
+})
+
+
+
 module.exports = router
+

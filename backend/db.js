@@ -4,7 +4,7 @@ mongoose.set('strictQuery',false)
 
 const connectToMongo =()=>{
     mongoose.connect(mongoURI, ()=>{
-        console.log("Successfully connected to mongoDB")
+        console.log("Successfully connected to the database")
     })
 }
 

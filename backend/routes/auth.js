@@ -86,6 +86,7 @@ router.post('/login', [
             authenticate(password, res, query)
         }
     })
+    
 
 //Common function to authenticate the user using the username/email and password
 async function authenticate(password, res, query) {

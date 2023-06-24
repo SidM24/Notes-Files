@@ -1,11 +1,13 @@
-const mongoose=require('mongoose')
-const mongoURI="mongodb://localhost:27017/inotebook?directConnection=true"
-mongoose.set('strictQuery',false)
+const mongoose = require('mongoose')
+const mongoURI = "mongodb://localhost:27017/inotebook?directConnection=true"
+mongoose.set('strictQuery', false)
 
-const connectToMongo =()=>{
-    mongoose.connect(mongoURI, ()=>{
+const connectToMongo = () => {
+    mongoose.connect(mongoURI, () => {
         console.log("Successfully connected to the database")
+
     })
 }
 
 module.exports = connectToMongo
+

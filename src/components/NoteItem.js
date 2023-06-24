@@ -8,9 +8,10 @@ const NoteItem = (props) => {
     const { deleteNote } = context
     const { note, updateNotes } = props
 
-    //Function to delete a note
+    //Function to delete a note 
     const handleClick = () => {
         deleteNote(note._id)
+        props.showAlert("Note Successfully Deleted")
     }
     return (
         <div className='col-md-3'>

@@ -16,7 +16,7 @@ const NoteState = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWQ5OWUwNWNlNmRlNDNhZTU1MWEzYiIsImlhdCI6MTY3MjY2OTA0M30.AvMhfT8Pal7xBeVsP-4vz4b9HmdIUCteTJWtxN-ns70'
+                'auth-token': localStorage.getItem('token')
             },
         });
         const test = await response.json();
@@ -33,24 +33,26 @@ const NoteState = (props) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWQ5OWUwNWNlNmRlNDNhZTU1MWEzYiIsImlhdCI6MTY3MjY2OTA0M30.AvMhfT8Pal7xBeVsP-4vz4b9HmdIUCteTJWtxN-ns70'
+                'auth-token': localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag })
         });
+        const test = await response.json();
+        console.log(test)
 
-        console.log(response.json)
-        
         //Logic to edit a note on the client side is below
+        let newNotes = JSON.parse(JSON.stringify(notes))
         //Searching the note in the database
-        for (let index = 0; index < notes.length; index++) {
-            const element = notes[index];
+        for (let index = 0; index < newNotes.length; index++) {
+            const element = newNotes[index];
             if (element._id === id) {
-                element.title = title
-                element.description = description
-                element.tag = tag
+                newNotes[index].title = title
+                newNotes[index].description = description
+                newNotes[index].tag = tag
+                break
             }
         }
-
+        setNotes(newNotes)
     }
 
 
@@ -62,14 +64,14 @@ const NoteState = (props) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWQ5OWUwNWNlNmRlNDNhZTU1MWEzYiIsImlhdCI6MTY3MjY2OTA0M30.AvMhfT8Pal7xBeVsP-4vz4b9HmdIUCteTJWtxN-ns70'
+                'auth-token': localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag })
         });
-        const json = await response.json();
+        const note = await response.json();
         // Logic to add the note on the client side
 
-        setNotes(notes.concat(json))
+        setNotes(notes.concat(note))
     }
 
     //Delete a note
@@ -80,9 +82,10 @@ const NoteState = (props) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWQ5OWUwNWNlNmRlNDNhZTU1MWEzYiIsImlhdCI6MTY3MjY2OTA0M30.AvMhfT8Pal7xBeVsP-4vz4b9HmdIUCteTJWtxN-ns70'
+                'auth-token': localStorage.getItem('token')
             },
         });
+        console.log(response)
         //Client Side deltion code
         const newNotes = notes.filter((note) => { return note._id !== id })
         setNotes(newNotes)
@@ -97,3 +100,4 @@ const NoteState = (props) => {
 export default NoteState
 
 
+ 

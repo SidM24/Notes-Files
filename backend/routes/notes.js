@@ -28,7 +28,7 @@ router.post('/addnote', fetchuser, [
 })
 
 
-
+ 
 //Route 2 api/notes/fetchallnotes to get all the notes corresponding to a particular user Login required
 router.get('/fetchallnotes', fetchuser, async (req, res) => {
     try {

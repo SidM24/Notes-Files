@@ -22,15 +22,17 @@ router.post('/createuser', [
             return res.status(400).json({ errors: errors.array() })
         }
         else {
+            let success = false
             //Check whether the user has unique username and email by checking in the database
             try {
                 if (await User.findOne({ username: req.body.username })) {
-                    return res.status(400).json({ errors: "Sorry the user with this username already exists" })
+                    return res.status(400).json({ success, errors: "Sorry the user with this username already exists" })
                 }
                 else if (await User.findOne({ email: req.body.email })) {
-                    return res.status(400).json({ errors: "Sorry the user with this email already exists" })
+                    return res.status(400).json({ success, errors: "Sorry the user with this email already exists" })
                 }
                 else {
+                    success = true
                     //Securing the data
                     const salt = await bcrypt.genSalt(10)
                     const securedPassword = await bcrypt.hash(req.body.password, salt)
@@ -49,7 +51,7 @@ router.post('/createuser', [
                     }
                     //generating a token to be used to access different sections of the website
                     const authToken = jwt.sign(data, JWT_SECRET)
-                    res.json({ authToken })
+                    res.json({ success, authToken })
                 }
             }
             catch (error) {
@@ -66,9 +68,10 @@ router.post('/login', [
     body('password', "Password cannot be blank").exists()
 ],
     async (req, res) => {
+        let success = false;
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() })
+            return res.status(400).json({ success, errors: errors.array() })
         }
         else {
             //Checking if the user exists on our database
@@ -86,26 +89,28 @@ router.post('/login', [
             authenticate(password, res, query)
         }
     })
-    
+
 
 //Common function to authenticate the user using the username/email and password
 async function authenticate(password, res, query) {
     try {
+        let success = false
         let user = await User.findOne(query)
         if (!user) {
-            return res.status(400).json({ errors: `Invalid username/email` })
+            return res.status(400).json({ success, errors: `Invalid username/email` })
         }
         const passwordCompare = await bcrypt.compare(password, user.password)
         if (!passwordCompare) {
-            return res.status(400).json({ errors: "Invalid password entered" })
+            return res.status(400).json({ success, errors: "Invalid password entered" })
         }
         //data stores the payload or the static info of the user that has just been authenticated to enter
         const data = {
             id: user.id
         }
         //generating a token to be used to access different sections of the website
+        success = true;
         const authToken = jwt.sign(data, JWT_SECRET)
-        res.json({ authToken })
+        res.json({ success, authToken })
     } catch (error) {
         console.error(error.message)
         res.status(500).send("Some internal server error occured")

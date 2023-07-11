@@ -25,13 +25,13 @@ const FileUpload = (props) => {
     else {
       navigate('/login')
     }
-  }, [])
+  }, [])// eslint-disable-line
 
   //To handle the submit button click
   const handleClick = async (e) => {
     e.preventDefault()
     try {
-      // await addfile(file.title, file.description, file.tag, img.imageUrl)
+      await addfile(file.title, file.description, file.tag, img.imageUrl)
     } catch (error) {
       console.log(error)
     }
@@ -88,9 +88,6 @@ const FileUpload = (props) => {
           })}
         </div>
       </div>
-
-
-
     </>
   )
 }

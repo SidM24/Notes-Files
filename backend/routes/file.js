@@ -55,4 +55,20 @@ router.get('/getallfiles', fetchuser, async (req, res) => {
     }
 })
 
+router.delete('/deletefile/:id', fetchuser, async (req, res) => {
+    try {
+        // Find the file to be deleted and delete it
+        let file = await Files.findById(req.params.id)
+        if (!file) { return res.status(404).send("Test") }
+        if (file.user.toString() !== req.user) { return res.status(401).send("Not Allowed") }
+
+        file = await Files.findByIdAndDelete(req.params.id);
+        res.json({ "Success": "File has been successfully deleted" })
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send("Some internal server error occured")
+    }
+})
+
 module.exports = router
+

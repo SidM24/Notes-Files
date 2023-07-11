@@ -39,8 +39,24 @@ const FileState = (props) => {
         setFiles(test)
     }
 
+    //Delete a file
+    const deletefile = async (id) => {
+        //Api call to delete the data from the database
+        const url = `http://localhost:5000/api/file/deletefile/${id}`
+        const response = await fetch(url, {// eslint-disable-line
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+        });
+        // console.log(response)
+        const newFiles = files.filter((file) => { return file._id !== id })
+        setFiles(newFiles)
+    }
+
     return (
-        <FileContext.Provider value={{ files, addfile, getallfiles }}>
+        <FileContext.Provider value={{ files, addfile, getallfiles, deletefile }}>
             {props.children}
         </FileContext.Provider>
     )

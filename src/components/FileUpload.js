@@ -32,6 +32,7 @@ const FileUpload = (props) => {
     e.preventDefault()
     try {
       await addfile(file.title, file.description, file.tag, img.imageUrl)
+      setFile({ title: "", description: "", tag: "" })
     } catch (error) {
       console.log(error)
     }

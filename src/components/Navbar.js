@@ -16,9 +16,9 @@ const Navbar = () => {
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: '0px', height: '8vh' }}>
-                <div className="container-fluid" style={{justifyContent:'center'}}>
-                    <Link className="navbar-brand" to="/">
-                        <img src={logo} alt='Task Pulse' style={{ height: '3.2rem', borderRadius: '1rem' }} />
+                <div className="container-fluid" style={{ justifyContent: 'center' }}>
+                    <Link className="navbar-brand" to="/" style={{ margin: '0px', padding: '0px' }}>
+                        <img src={logo} alt='Task Pulse' style={{ maxHeight: '7.8vh', borderRadius: '1rem' }} />
                     </Link>
                     {!localStorage.getItem('token') ? <></> :
                         <>

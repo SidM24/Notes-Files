@@ -36,7 +36,7 @@ function App() {
               <Navbar></Navbar>
               <Alert alert={alert}></Alert>
             </div>
-            <div className="conatiner" style={{ marginTop: '5rem' }}>
+            <div className="conatiner" style={{ marginTop: '8vh' }}>
               <Routes>
                 <Route exact path="/" element={<Home showAlert={showAlert}></Home>} />
                 <Route exact path="/home" element={<Home showAlert={showAlert}></Home>} />

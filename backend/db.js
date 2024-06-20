@@ -1,13 +1,16 @@
-const mongoose = require('mongoose')
-const mongoURI = "mongodb://localhost:27017/inotebook?directConnection=true"
-mongoose.set('strictQuery', false)
+const mongoose = require('mongoose');
+const mongoURI = "mongodb+srv://Dr_Legend:IFUckcELIqJhqURu@siddhartapi.k3yanvh.mongodb.net/?retryWrites=true&w=majority&appName=SiddhartAPI";
 
-const connectToMongo = () => {
-    mongoose.connect(mongoURI, () => {
-        console.log("Successfully connected to the database")
 
-    })
-}
+mongoose.set('strictQuery', true);
 
-module.exports = connectToMongo
+const connectToMongo = async () => {
+    try {
+        await mongoose.connect(mongoURI)
+        console.log('Connection to db successful')
+    } catch (error) {
+        console.log(error)
+    }
+};
 
+module.exports = connectToMongo;

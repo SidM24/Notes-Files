@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import loginImage from '../Images/LoginImage.jpg'
+import userIcon from '../Images/userIcon.png'
+import passwordIcon from '../Images/padlock.png'
+import background from '../Images/bg.jpg'
+
 const Login = (props) => {
 
     const [userInfo, setuserInfo] = useState({ id: "", password: "" })
@@ -30,21 +35,48 @@ const Login = (props) => {
             props.showAlert("Logged in Successfully")
         }
     }
-    return (
-        <div className="container" >
-            <form onSubmit={handleSubmit} style={{ marginTop: '8rem' }}>
-                <div className="form-group">
-                    <label htmlFor="id">Email/UserName</label>
-                    <input type="id" className="form-control" id="id" name='id' value={userInfo.id} aria-describedby="emailHelp" placeholder="Enter email/username" onChange={onChange} />
-                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+    return (<>
+        <div style={{ margin: '0px', padding: '0px', height: '92vh', background: `url(${background})`, backgroundSize: 'cover' }}>
+            <h1 style={{ textAlign: 'center', paddingTop: '4rem', fontSize: '4rem' }}>Welcome To Task Pulse!!</h1>
+            <h5 style={{ textAlign: 'center' }}>One stop destination to keep track of all your notes</h5>
+            <div className="container" style={{ display: 'flex', justifyContent: 'space-evenly', width: '60%', height: '65vh', alignItems: 'center', paddingTop: '3rem' }}>
+                <div className="loginImage" style={{ height: '100%' }}>
+                    <img src={loginImage} alt='Welcome to Task Pulse' style={{ height: '20rem', width: '20rem', borderRadius: '5rem' }} />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input type="password" className="form-control" id="password" name='password' value={userInfo.password} placeholder="Password" onChange={onChange} />
+                <div className="loginform" style={{ height: '100%' }}>
+                    <h1 style={{ textAlign: 'center', fontFamily: 'fantasy', letterSpacing: '5px', marginBottom: '1rem' }}>LOGIN</h1>
+                    <form onSubmit={handleSubmit} style={{ position: 'relative', width: '100%', height: 'auto' }}>
+                        <div className="form-group" style={{ marginTop: '1.5rem' }}>
+                            <input type="id" className="form-control" id="id" name='id' value={userInfo.id} aria-describedby="emailHelp" placeholder="Username/Email" onChange={onChange} style={{ paddingLeft: '2.5rem' }} />
+                            <img src={userIcon} alt='' style={{
+                                position: 'absolute',
+                                height: '20px',
+                                width: '20px',
+                                top: '5%',
+                                left: '5%'
+                            }}></img>
+                        </div>
+                        <div className="form-group" style={{ marginTop: '1.5rem' }}>
+                            <input type="password" className="form-control" id="password" name='password' value={userInfo.password} placeholder="Password" onChange={onChange} style={{ paddingLeft: '2.5rem' }} />
+                            <img src={passwordIcon} alt='' style={{
+                                position: 'absolute',
+                                height: '20px',
+                                width: '20px',
+                                top: '33%',
+                                left: '5%'
+                            }}></img>
+                        </div>
+                        <div className='LoginButton' style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+                            <button type="submit" className="btn btn-primary my-2" style={{ color: 'white', borderRadius: '2rem', width: '90%', border: 'none', background: 'black' }}>Submit</button>
+                        </div>
+                        <p style={{ textAlign: 'center' }}>Dont't have an Account?
+                            <a href="/signup" style={{ display: 'block', textDecoration: 'none', fontWeight: '500' }}>Signup</a>
+                        </p>
+                    </form>
                 </div>
-                <button type="submit" className="btn btn-primary my-2">Submit</button>
-            </form>
+            </div>
         </div>
+    </>
     )
 }
 

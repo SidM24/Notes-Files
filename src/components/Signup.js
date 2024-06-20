@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import bgImg from '../Images/bg.jpg'
 
 const Signup = (props) => {
 
@@ -37,71 +38,70 @@ const Signup = (props) => {
     }
 
     return (
-        <section className="vh-100" style={{ backgroundColor: "#eee" }}>
-            <div className="container h-100">
-                <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col-lg-12 col-xl-11">
-                        <div className="card text-black" style={{ borderRadius: "25px" }}>
-                            <div className="card-body p-md-5">
-                                <div className="row justify-content-center">
-                                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+        <>
+            <div className="SignUpPage" style={{ margin: '0px', background: `url(${bgImg})`, height: '92vh', width: '100vw', backgroundSize: 'cover', justifyContent: 'center' }}>
+                <h1 style={{ textAlign: 'center', paddingTop: '4rem', fontSize: '4rem' }}>Welcome To Task Pulse!!</h1>
+                <h5 style={{ textAlign: 'center' }}>One stop destination to keep track of all your notes</h5>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div className="SignUpBox" style={{ display: 'flex', width: '60%', justifyContent: 'space-evenly' }}>
+                        <div className="ImageBox" style={{ width: '50%', display: "flex", alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                className="img-fluid" alt="Sample" style={{ borderRadius: '4.5rem' }} />
+                        </div>
+                        <div className="SignUpForm" style={{
+                            width: '50%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            paddingTop: '3rem'
+                        }}>
 
-                                        <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                            <h1 style={{ textAlign: 'center', fontFamily: 'fantasy', letterSpacing: '5px', marginBottom: '1rem' }}>SIGNUP</h1>
 
-                                        <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
+                            <form className="mx-1 mx-md-4" onSubmit={handleSubmit} style={{ width: '60%' }}>
 
-                                            <div className="d-flex flex-row align-items-center mb-4">
-                                                <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                                <div className="form-outline flex-fill mb-0">
-                                                    <input type="text" id="name" className="form-control" name='name' value={userInfo.name} onChange={onChange} />
-                                                    <label className="form-label" htmlFor="username">Your Name</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex flex-row align-items-center mb-4">
-                                                <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                                <div className="form-outline flex-fill mb-0">
-                                                    <input type="email" id="email" className="form-control" name='email' value={userInfo.email} onChange={onChange} />
-                                                    <label className="form-label" htmlFor="email">Your Email</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex flex-row align-items-center mb-4">
-                                                <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                                <div className="form-outline flex-fill mb-0">
-                                                    <input type="text" id="username" className="form-control" name='username' value={userInfo.username} onChange={onChange} />
-                                                    <label className="form-label" htmlFor="username">Choose Username</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex flex-row align-items-center mb-4">
-                                                <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                                <div className="form-outline flex-fill mb-0">
-                                                    <input type="password" id="password" className="form-control" name='password' value={userInfo.password} onChange={onChange} />
-                                                    <label className="form-label" htmlFor="password">Password</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                                <button type="submit" className="btn btn-primary btn-lg" >Register</button>
-                                            </div>
-
-                                        </form>
-
-                                    </div>
-                                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                                            className="img-fluid" alt="Sample" />
-
+                                <div className="d-flex flex-row align-items-center mb-3">
+                                    <i className="fas fa-user fa-lg me-3 fa-fw" style={{ position: 'absolute', paddingLeft: '0.8rem' }}></i>
+                                    <div className="form-outline flex-fill mb-1">
+                                        <input type="text" id="name" className="form-control" name='name' value={userInfo.name} onChange={onChange} placeholder='Your email' style={{ paddingLeft: '2.5rem' }} />
                                     </div>
                                 </div>
-                            </div>
+
+                                <div className="d-flex flex-row align-items-center mb-3">
+                                    <i className="fas fa-envelope fa-lg me-3 fa-fw" style={{ position: 'absolute', paddingLeft: '0.8rem' }}></i>
+                                    <div className="form-outline flex-fill mb-0">
+                                        <input type="email" id="email" className="form-control" name='email' value={userInfo.email} onChange={onChange} placeholder='Your email' style={{ paddingLeft: '2.5rem' }} />
+                                    </div>
+                                </div>
+
+                                <div className="d-flex flex-row align-items-center mb-3">
+                                    <i className="fas fa-user fa-lg me-3 fa-fw" style={{ position: 'absolute', paddingLeft: '0.8rem' }}></i>
+                                    <div className="form-outline flex-fill mb-0">
+                                        <input type="text" id="username" className="form-control" name='username' value={userInfo.username} onChange={onChange} placeholder='Select username' style={{ paddingLeft: '2.5rem' }} />
+                                    </div>
+                                </div>
+
+                                <div className="d-flex flex-row align-items-center mb-3">
+                                    <i className="fas fa-lock fa-lg me-3 fa-fw" style={{ position: 'absolute', paddingLeft: '0.8rem' }}></i>
+                                    <div className="form-outline flex-fill mb-0">
+                                        <input type="password" id="password" className="form-control" name='password' value={userInfo.password} onChange={onChange} placeholder='Set Password' style={{ paddingLeft: '2.5rem' }} />
+                                    </div>
+                                </div>
+
+                                <div className="d-flex justify-content-center">
+                                    <button type="submit" className="btn" style={{ color: 'white', borderRadius: '2rem', background: 'black', width: '80%' }} >Register</button>
+                                </div>
+                                <p style={{ textAlign: 'center', marginTop: '0.8rem' }}>Already have an Account?
+                                    <a href="/login" style={{ display: 'block', textDecoration: 'none', fontWeight: '500' }}>Login</a>
+                                </p>
+                            </form>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </>
     )
 }
 

@@ -15,9 +15,9 @@ router.post('/addnote', fetchuser, [
     }
     try {
         //if there are no errors then the following code will be executed
-        const { title, description, tag } = req.body
+        const { title, description, tag, color } = req.body
         const note = new Notes({
-            title, description, tag, user: req.user
+            title, description, tag, color, user: req.user
         })
         const savedNote = await note.save()
         res.json(savedNote)
@@ -28,7 +28,7 @@ router.post('/addnote', fetchuser, [
 })
 
 
- 
+
 //Route 2 api/notes/fetchallnotes to get all the notes corresponding to a particular user Login required
 router.get('/fetchallnotes', fetchuser, async (req, res) => {
     try {
@@ -43,13 +43,14 @@ router.get('/fetchallnotes', fetchuser, async (req, res) => {
 //Route 3 api/notes/updatenote  Update a note of a user Login required
 
 router.put('/updatenote/:id', fetchuser, async (req, res) => {
-    const { title, description, tag } = req.body
+    const { title, description, tag, color } = req.body
     try {
         //Creating a new note object 
         const newNote = {};
         if (title) newNote.title = title;
         if (description) newNote.description = description;
         if (tag) newNote.tag = tag;
+        if (color) newNote.color = color
 
         //Find the note to be updated and update it
         let note = await Notes.findById(req.params.id)

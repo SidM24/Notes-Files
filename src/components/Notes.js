@@ -11,7 +11,8 @@ const Notes = (props) => {
 
     //using the global note context
     const context = useContext(NoteContext)
-    const { notes, getnotes, editNote } = context
+    const [newNote, setnewNote] = useState({ title: "", description: "", tag: "", color: "#000000" })
+    const { notes, getnotes, editNote, addNote } = context
 
     let navigate = useNavigate();
     //The below use effect would render the notes only on the first render due to empty [] at last
@@ -31,12 +32,14 @@ const Notes = (props) => {
     const ref = useRef(null)
     const refClose = useRef(null)
 
-    const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
+    const closeAddNote = useRef(null)
+
+    const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "", ecolor: "" })
     const [isOpen, setIsOpen] = useState(false);
 
     const updateNotes = (currentNote) => {
         ref.current.click();
-        setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
+        setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag, ecolor: currentNote.color })
     }
 
 
@@ -49,24 +52,64 @@ const Notes = (props) => {
         else if (note.edescription.length < 5) { props.showAlert("Description should be min 5 characters in length") }
         else {
             props.showAlert("Note Updated Successfully")
-            editNote(note.id, note.etitle, note.edescription, note.etag)
+            editNote(note.id, note.etitle, note.edescription, note.etag, note.ecolor)
             refClose.current.click()
+        }
+    }
+
+    const handleAddNoteClick = async (e) => {
+        if (newNote.title.length < 5) { props.showAlert("Title should be min 5 characters in length") }
+        else if (newNote.description.length < 5) { props.showAlert("Description should be min 5 characters in length") }
+        else {
+            addNote(newNote.title, newNote.description, newNote.tag, newNote.color)
+            setnewNote({ title: "", description: "", tag: "", color: "#000000" })
+            //Now we will close this note using ref
+            closeAddNote.current.click()
+            //Showing Alert that the new note has been added
+            props.showAlert("New Note Added Successfully")
         }
     }
     return (
         <>
-            <div style={{ position: 'absolute', width: '85%', margin: 'auto', padding: '1rem', marginTop: '1rem', zIndex: '-9' }}>
-                <AddNote showAlert={showAlert}></AddNote>
+            <div style={{ position: 'absolute', left: '0', width: '100%', padding: '1rem', background: '#888888', minHeight: '92vh' }}>
                 <button ref={ref} type="button" className="btn btn-primary" data-bs-toggle="modal" data-target="#test" onClick={() => {
                     setIsOpen(true)
-                }} style={{ display: 'none' }}>
-                </button>
+                }} style={{ display: 'none' }} >test</button>
 
-                <div className="row my-3">
-                    <h1>Your Notes</h1>
+                <div className="row my-3" style={{ width: '85%', margin: 'auto' }}>
+                    <h1 style={{ textAlign: 'center', fontFamily: 'cursive', fontWeight: 'bold' }}>Your Notes</h1>
                     {notes.map((note) => {
                         return <NoteItem note={note} key={note._id} updateNotes={updateNotes} showAlert={showAlert} ></NoteItem>
                     })}
+                </div>
+                <p data-toggle="tooltip">
+                    <button
+                        style={{
+                            position: 'fixed', right: '4%', height: '3rem', width: '3rem', borderRadius: '100%', bottom: '1em', fontSize: 'x-large', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', border: '2px solid blue', color: 'white', background: 'blue'
+                        }}
+                        data-toggle="modal" data-target="#AddNoteModal" data-placement="top" title='Add Note'>
+                        +
+                    </button>
+                </p>
+
+                <div className="modal fade" id="AddNoteModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h2 className="modal-title" id="exampleModalLongTitle">Add Note</h2>
+                                <button ref={closeAddNote} type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <AddNote showAlert={showAlert} newNote={newNote} setnewNote={setnewNote} />
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-primary" onClick={handleAddNoteClick}>Add Note</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -89,6 +132,10 @@ const Notes = (props) => {
                                 <div className="mb-3">
                                     <label htmlFor="Tag" className="form-label">Tag</label>
                                     <input type="text" className="form-control" id="etag" name='etag' value={note.etag} onChange={onChange} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="Color" className="form-label">Color</label>
+                                    <input type="color" className="form-control" id="ecolor" name='ecolor' value={note.ecolor} onChange={onChange} />
                                 </div>
                             </form>
                             <button ref={refClose} style={{ borderRadius: '10px', width: '10rem', margin: '0.5rem', opacity: '1', backgroundColor: 'blue', color: 'white', marginTop: '1rem' }} onClick={() => { setIsOpen(false) }}>Close</button>

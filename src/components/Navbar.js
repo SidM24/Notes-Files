@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 
 import logo from '../Images/logo.png'
 
+
 const Navbar = () => {
     let location = useLocation();
     let navigate = useNavigate();
@@ -30,16 +31,24 @@ const Navbar = () => {
                                     {userSessionToken && (
                                         <>
                                             <li className="nav-item">
-                                                <Link className={`nav-link ${location.pathname === "/home" || location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/home" style={{ fontFamily: 'monospace', fontSize: '1.5rem', marginLeft: '1rem' }}>Notes</Link>
+                                                <Link className={`nav-link ${location.pathname === "/home" || location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/home" style={{ fontFamily: 'monospace', fontSize: '1.5rem', marginLeft: '1rem' }}>MyNotes</Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} aria-current="page" to="/about" style={{ fontFamily: 'monospace', fontSize: '1.5rem', marginLeft: '1rem' }}>FileUpload</Link>
+                                                <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} aria-current="page" to="/about" style={{ fontFamily: 'monospace', fontSize: '1.5rem', marginLeft: '1rem' }}>MyFiles</Link>
                                             </li>
 
                                         </>
                                     )}
                                 </ul>
-                                <button type="button" className="btn btn-primary mx-2" onClick={handleLogout}>Logout</button>
+                                <div className="btn-group">
+                                    <button type="button" className="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Action
+                                    </button>
+                                    <div className="dropdown-menu">
+                                        <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+                                        <button className="dropdown-item" >UserDetails</button>
+                                    </div>
+                                </div>
                             </div>
                         </>
                     }

@@ -7,6 +7,7 @@ const NotesSchema = new Schema({
     description: { type: String, required: true },
     tag: { type: String, default: "general" },
     date: { type: Date, default: Date.now },
+    color: { type: String, default: "#000000" }
 });
 
 module.exports = mongoose.model('notes', NotesSchema);
@@ -14,4 +15,3 @@ module.exports = mongoose.model('notes', NotesSchema);
 
 
 
- 

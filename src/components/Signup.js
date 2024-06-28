@@ -64,14 +64,14 @@ const Signup = (props) => {
                                 <div className="d-flex flex-row align-items-center mb-3">
                                     <i className="fas fa-user fa-lg me-3 fa-fw" style={{ position: 'absolute', paddingLeft: '0.8rem' }}></i>
                                     <div className="form-outline flex-fill mb-1">
-                                        <input type="text" id="name" className="form-control" name='name' value={userInfo.name} onChange={onChange} placeholder='Your email' style={{ paddingLeft: '2.5rem' }} />
+                                        <input type="text" id="name" className="form-control" name='name' value={userInfo.name} onChange={onChange} placeholder='Your Name' style={{ paddingLeft: '2.5rem' }} />
                                     </div>
                                 </div>
 
                                 <div className="d-flex flex-row align-items-center mb-3">
                                     <i className="fas fa-envelope fa-lg me-3 fa-fw" style={{ position: 'absolute', paddingLeft: '0.8rem' }}></i>
                                     <div className="form-outline flex-fill mb-0">
-                                        <input type="email" id="email" className="form-control" name='email' value={userInfo.email} onChange={onChange} placeholder='Your email' style={{ paddingLeft: '2.5rem' }} />
+                                        <input type="email" id="email" className="form-control" name='email' value={userInfo.email} onChange={onChange} placeholder='Your Email' style={{ paddingLeft: '2.5rem' }} />
                                     </div>
                                 </div>
 

@@ -25,7 +25,7 @@ const NoteState = (props) => {
 
 
     //Edit a note
-    const editNote = async (id, title, description, tag) => {
+    const editNote = async (id, title, description, tag, color) => {
         //Api call to edit a note
         //here id is the note id and not the auth token
         const url = `http://localhost:5000/api/notes/updatenote/${id}`
@@ -35,7 +35,7 @@ const NoteState = (props) => {
                 'Content-Type': 'application/json',
                 'auth-token': localStorage.getItem('token')
             },
-            body: JSON.stringify({ title, description, tag })
+            body: JSON.stringify({ title, description, tag, color })
         });
         const test = await response.json();
         console.log(test)
@@ -49,6 +49,7 @@ const NoteState = (props) => {
                 newNotes[index].title = title
                 newNotes[index].description = description
                 newNotes[index].tag = tag
+                newNotes[index].color = color
                 break
             }
         }
@@ -57,7 +58,7 @@ const NoteState = (props) => {
 
 
     //Add a note
-    const addNote = async (title, description, tag) => {
+    const addNote = async (title, description, tag, color) => {
         //Api Call
         const url = `http://localhost:5000/api/notes/addnote`
         const response = await fetch(url, {
@@ -66,7 +67,7 @@ const NoteState = (props) => {
                 'Content-Type': 'application/json',
                 'auth-token': localStorage.getItem('token')
             },
-            body: JSON.stringify({ title, description, tag })
+            body: JSON.stringify({ title, description, tag, color })
         });
         const note = await response.json();
         // Logic to add the note on the client side
@@ -100,4 +101,3 @@ const NoteState = (props) => {
 export default NoteState
 
 
- 

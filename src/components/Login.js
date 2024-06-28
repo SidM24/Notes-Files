@@ -62,14 +62,14 @@ const Login = (props) => {
                                 position: 'absolute',
                                 height: '20px',
                                 width: '20px',
-                                top: '33%',
+                                top: '32%',
                                 left: '5%'
-                            }}></img>
+                            }} />
                         </div>
                         <div className='LoginButton' style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
                             <button type="submit" className="btn btn-primary my-2" style={{ color: 'white', borderRadius: '2rem', width: '90%', border: 'none', background: 'black' }}>Submit</button>
                         </div>
-                        <p style={{ textAlign: 'center' }}>Dont't have an Account?
+                        <p style={{ textAlign: 'center',marginTop:'0.5rem' }}>Dont't have an Account?
                             <a href="/signup" style={{ display: 'block', textDecoration: 'none', fontWeight: '500' }}>Signup</a>
                         </p>
                     </form>

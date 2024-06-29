@@ -13,12 +13,14 @@ const Notes = (props) => {
     const context = useContext(NoteContext)
     const [newNote, setnewNote] = useState({ title: "", description: "", tag: "", color: "#000000" })
     const { notes, getnotes, editNote, addNote } = context
+    const [user, setUser] = useState({ name: "", username: "", email: "", })
 
     let navigate = useNavigate();
     //The below use effect would render the notes only on the first render due to empty [] at last
     useEffect(() => {
         if (localStorage.getItem('token')) {
             getnotes()
+            getUser()
         }
         else {
             navigate('/login')
@@ -42,6 +44,22 @@ const Notes = (props) => {
         setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag, ecolor: currentNote.color })
     }
 
+    //Fetching the user details using the getuser route
+    const getUser = async () => {
+        const url = `http://localhost:5000/api/auth/getuser`
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'auth-token': localStorage.getItem('token')
+            },
+        })
+        const res = await response.json();
+        setUser({
+            name: res.name,
+            username: res.username,
+            email: res.email
+        })
+    }
 
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
@@ -50,6 +68,7 @@ const Notes = (props) => {
     const handleUpdateNoteClick = (e) => {
         if (note.etitle.length < 5) { props.showAlert("Title should be min 5 characters in length") }
         else if (note.edescription.length < 5) { props.showAlert("Description should be min 5 characters in length") }
+        else if (note.etag.length > 10) { props.showAlert("Tag should be less than 10 characters in length") }
         else {
             props.showAlert("Note Updated Successfully")
             editNote(note.id, note.etitle, note.edescription, note.etag, note.ecolor)
@@ -60,6 +79,7 @@ const Notes = (props) => {
     const handleAddNoteClick = async (e) => {
         if (newNote.title.length < 5) { props.showAlert("Title should be min 5 characters in length") }
         else if (newNote.description.length < 5) { props.showAlert("Description should be min 5 characters in length") }
+        else if (newNote.tag.length > 10) { props.showAlert("Tag should be less than 10 characters in length") }
         else {
             addNote(newNote.title, newNote.description, newNote.tag, newNote.color)
             setnewNote({ title: "", description: "", tag: "", color: "#000000" })
@@ -71,16 +91,32 @@ const Notes = (props) => {
     }
     return (
         <>
-            <div style={{ position: 'absolute', left: '0', width: '100%', padding: '1rem', background: '#888888', minHeight: '92vh' }}>
+            <div style={{ position: 'absolute', left: '0', width: '100%', padding: '1rem', background: '#b5b5b5', minHeight: '92vh' }}>
                 <button ref={ref} type="button" className="btn btn-primary" data-bs-toggle="modal" data-target="#test" onClick={() => {
                     setIsOpen(true)
-                }} style={{ display: 'none' }} >test</button>
+                }} style={{ display: 'none' }} ></button>
 
                 <div className="row my-3" style={{ width: '85%', margin: 'auto' }}>
-                    <h1 style={{ textAlign: 'center', fontFamily: 'cursive', fontWeight: 'bold' }}>Your Notes</h1>
-                    {notes.map((note) => {
-                        return <NoteItem note={note} key={note._id} updateNotes={updateNotes} showAlert={showAlert} ></NoteItem>
-                    })}
+                    {notes.length === 0
+                        ? <>
+                            <div className="container" style={{ textAlign: 'center', marginTop: '2rem', fontFamily: 'cursive' }}>
+                                <h1 style={{
+                                    color: '#f2e6d3',
+                                    boxShadow: '5px 0 10px #ffe6be',
+                                    background: '#515151',
+                                    borderRadius: '2rem'
+                                }}>Hello {user.name}!! Welcome to Task Pulse</h1>
+                                <h4>Click on the Add Note button in the corner to get started</h4>
+                            </div>
+                        </>
+                        :
+                        <>
+                            <h1 style={{ textAlign: 'center', fontFamily: 'cursive', fontWeight: 'bold' }}>Notes</h1>
+                            {notes.map((note) => {
+                                return <NoteItem note={note} key={note._id} updateNotes={updateNotes} showAlert={showAlert} ></NoteItem>
+                            })}
+                        </>
+                    }
                 </div>
                 <p data-toggle="tooltip">
                     <button

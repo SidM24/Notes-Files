@@ -20,7 +20,6 @@ const FileState = (props) => {
             body: JSON.stringify({ title, description, tag, img })
         });
         const file = await response.json();
-        console.log(file)
         setFiles(files.concat(file))
     }
 

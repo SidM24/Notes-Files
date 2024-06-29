@@ -13,6 +13,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import FileUpload from './components/FileUpload';
 import FileState from './context/FileState';
+import UserDetails from './components/UserDetails';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
     })
     setTimeout(() => {
       setAlert(null)
-    }, 500)
+    }, 1000)
   }
 
   return (
@@ -32,7 +33,7 @@ function App() {
       <NoteState>
         <FileState>
           <Router>
-            <div className="alertcont" style={{ position: 'fixed', top: '0', width: '100%', zIndex: '25' }}>
+            <div className="alertcont" style={{ position: 'fixed', top: '0', width: '100%', zIndex: '2000' }}>
               <Navbar></Navbar>
               <Alert alert={alert}></Alert>
             </div>
@@ -40,9 +41,10 @@ function App() {
               <Routes>
                 <Route exact path="/" element={<Home showAlert={showAlert}></Home>} />
                 <Route exact path="/home" element={<Home showAlert={showAlert}></Home>} />
-                <Route exact path="/about" element={<FileUpload></FileUpload>} />
+                <Route exact path="/about" element={<FileUpload showAlert={showAlert}></FileUpload>} />
                 <Route exact path="/login" element={<Login showAlert={showAlert}></Login>} />
                 <Route exact path="/signup" element={<Signup showAlert={showAlert}></Signup>} />
+                <Route exact path="/userDetails" element={<UserDetails showAlert={showAlert}></UserDetails>} />
               </Routes>
             </div>
           </Router>

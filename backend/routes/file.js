@@ -22,7 +22,7 @@ router.post('/uploadfile', upload.single('myImage'), fetchuser, [
         var img = req.body.img
         var encode_img = img.toString('base64')
         var final_img = {
-            contentType: 'image/png',
+            contentType: 'multipart/form-data',
             image: Buffer.from(encode_img, 'base64')
         }
 

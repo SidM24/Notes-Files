@@ -5,7 +5,6 @@ const MainPage = () => {
     let navigate = useNavigate()
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            console.log(navigate)
             navigate('/home')
         }
         else {

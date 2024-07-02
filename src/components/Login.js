@@ -20,6 +20,7 @@ const Login = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        props.showLoading(true)
         const url = `${BASE_URL}/api/auth/login`
         const response = await fetch(url, {
             method: 'POST',
@@ -29,6 +30,7 @@ const Login = (props) => {
             body: JSON.stringify({ loginId: userInfo.id, password: userInfo.password })
         });
         const json = await response.json();
+        props.showLoading(false)
         if (!json.success) { props.showAlert("Invalid Id/Password") }
         else {
             localStorage.setItem('token', json.authToken)
@@ -71,7 +73,7 @@ const Login = (props) => {
                         <div className='LoginButton' style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
                             <button type="submit" className="btn btn-primary my-2" style={{ color: 'white', borderRadius: '2rem', width: '90%', border: 'none', background: 'black' }}>Submit</button>
                         </div>
-                        <p style={{ textAlign: 'center',marginTop:'0.5rem' }}>Dont't have an Account?
+                        <p style={{ textAlign: 'center', marginTop: '0.5rem' }}>Dont't have an Account?
                             <a href="/signup" style={{ display: 'block', textDecoration: 'none', fontWeight: '500' }}>Signup</a>
                         </p>
                     </form>

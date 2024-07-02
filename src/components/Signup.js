@@ -21,6 +21,7 @@ const Signup = (props) => {
         else if (userInfo.password.length < 8) { props.showAlert("Password should have atleast 8 characters") }
         else {
             const url = `${BASE_URL}/api/auth/createuser`
+            props.showLoading(true)
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -29,6 +30,7 @@ const Signup = (props) => {
                 body: JSON.stringify({ name: userInfo.name, username: userInfo.username, email: userInfo.email, password: userInfo.password })
             });
             const json = await response.json();
+            props.showLoading(false)
             if (!json.success) { props.showAlert(json.errors) }
             else {
                 localStorage.setItem('token', json.authToken)

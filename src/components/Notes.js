@@ -91,9 +91,11 @@ const Notes = (props) => {
         else if (newNote.description.length < 5) { props.showAlert("Description should be min 5 characters in length") }
         else if (newNote.tag.length > 10) { props.showAlert("Tag should be less than 10 characters in length") }
         else {
+            props.showLoading(true)
             addNote(newNote.title, newNote.description, newNote.tag, newNote.color)
             setnewNote({ title: "", description: "", tag: "", color: "#000000" })
             //Now we will close this note using ref
+            props.showLoading(false)
             closeAddNote.current.click()
             //Showing Alert that the new note has been added
             props.showAlert("New Note Added Successfully")
@@ -123,7 +125,7 @@ const Notes = (props) => {
                         <>
                             <h1 style={{ textAlign: 'center', fontFamily: 'cursive', fontWeight: 'bold' }}>Notes</h1>
                             {notes.map((note) => {
-                                return <NoteItem note={note} key={note._id} updateNotes={updateNotes} showAlert={showAlert} ></NoteItem>
+                                return <NoteItem note={note} key={note._id} updateNotes={updateNotes} showAlert={showAlert} showLoading={props.showLoading}></NoteItem>
                             })}
                         </>
                     }

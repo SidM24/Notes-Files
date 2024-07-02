@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef, useState } from 'react'
+import React, { useEffect, useContext, useRef, useState, useCallback } from 'react'
 import NoteContext from '../context/NoteContext'
 import AddNote from './AddNote'
 import NoteItem from './NoteItem'
@@ -16,6 +16,25 @@ const Notes = (props) => {
     const [user, setUser] = useState({ name: "", username: "", email: "", })
 
     let navigate = useNavigate();
+
+    //Fetching the user details using the getuser route
+    const getUser = useCallback(async () => {
+        const url = `http://localhost:5000/api/auth/getuser`
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'auth-token': localStorage.getItem('token')
+            },
+        })
+        const res = await response.json();
+        setUser({
+            name: res.name,
+            username: res.username,
+            email: res.email
+        })
+    }, []);
+
+
     //The below use effect would render the notes only on the first render due to empty [] at last
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -25,7 +44,7 @@ const Notes = (props) => {
         else {
             navigate('/login')
         }
-    }, [getnotes,getUser,navigate])
+    }, [getnotes, getUser, navigate])
 
 
     //ref is used to keep values between render as after render all values are reset except the ref
@@ -44,22 +63,7 @@ const Notes = (props) => {
         setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag, ecolor: currentNote.color })
     }
 
-    //Fetching the user details using the getuser route
-    const getUser = async () => {
-        const url = `http://localhost:5000/api/auth/getuser`
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'auth-token': localStorage.getItem('token')
-            },
-        })
-        const res = await response.json();
-        setUser({
-            name: res.name,
-            username: res.username,
-            email: res.email
-        })
-    }
+
 
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })

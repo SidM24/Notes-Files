@@ -8,7 +8,7 @@ const MainPage = () => {
             navigate('/home')
         }
         else {
-            navigate('login')
+            navigate('/login')
         }
 
     }, [navigate])

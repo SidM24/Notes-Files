@@ -33,7 +33,7 @@ const Login = (props) => {
         else {
             localStorage.setItem('token', json.authToken)
             console.log(json.authToken)
-            navigate("/home")
+            navigate("/")
             props.showAlert("Logged in Successfully")
         }
     }

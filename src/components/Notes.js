@@ -40,7 +40,7 @@ const Notes = (props) => {
     //The below use effect would render the notes only on the first render due to empty [] at last
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            navigate('/home')
+            navigate('/')
             getnotes()
             getUser()
         }

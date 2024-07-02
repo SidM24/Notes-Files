@@ -33,7 +33,7 @@ const Signup = (props) => {
             else {
                 localStorage.setItem('token', json.authToken)
                 props.showAlert("Logged in Successfully")
-                navigate("/home")
+                navigate("/")
                 console.log(json)
             }
         }

@@ -41,7 +41,7 @@ const Navbar = () => {
                                         <>
                                             <div className="Pages" style={{ display: 'flex' }}>
                                                 <li className="nav-item">
-                                                    <Link className={`nav-link ${location.pathname === "/home" || location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/home" style={{ fontFamily: 'monospace', fontSize: '1.5rem', marginLeft: '1rem' }}>MyNotes</Link>
+                                                    <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/" style={{ fontFamily: 'monospace', fontSize: '1.5rem', marginLeft: '1rem' }}>MyNotes</Link>
                                                 </li>
                                                 <li className="nav-item">
                                                     <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} aria-current="page" to="/about" style={{ fontFamily: 'monospace', fontSize: '1.5rem', marginLeft: '1rem' }}>MyFiles</Link>

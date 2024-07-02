@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import NoteContext from "./NoteContext";
 
+const BASE_URL = "https://notes-files-kzr6.onrender.com"
+
 
 const NoteState = (props) => {
     const notesInitial = [];
@@ -11,7 +13,7 @@ const NoteState = (props) => {
     //Get All Notes
     const getnotes = async () => {
         //Api Call
-        const url = `http://localhost:5000/api/notes/fetchallnotes`
+        const url = `${BASE_URL}/api/notes/fetchallnotes`
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -28,7 +30,7 @@ const NoteState = (props) => {
     const editNote = async (id, title, description, tag, color) => {
         //Api call to edit a note
         //here id is the note id and not the auth token
-        const url = `http://localhost:5000/api/notes/updatenote/${id}`
+        const url = `${BASE_URL}/api/notes/updatenote/${id}`
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
@@ -60,7 +62,7 @@ const NoteState = (props) => {
     //Add a note
     const addNote = async (title, description, tag, color) => {
         //Api Call
-        const url = `http://localhost:5000/api/notes/addnote`
+        const url = `${BASE_URL}/api/notes/addnote`
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -78,7 +80,7 @@ const NoteState = (props) => {
     //Delete a note
     const deleteNote = async (id) => {
         //Api call to delete the data from the database
-        const url = `http://localhost:5000/api/notes/deletenote/${id}`
+        const url = `${BASE_URL}/api/notes/deletenote/${id}`
         const response = await fetch(url, {
             method: 'DELETE',
             headers: {

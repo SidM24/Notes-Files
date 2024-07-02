@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import FileContext from "./FileContext";
 
+const BASE_URL = "https://notes-files-kzr6.onrender.com"
 
 const FileState = (props) => {
     const filesInitial = [];
@@ -10,7 +11,7 @@ const FileState = (props) => {
     //Add a file
     const addfile = async (title, description, tag, img) => {
         //Api Call
-        const url = `http://localhost:5000/api/file/uploadfile`
+        const url = `${BASE_URL}/api/file/uploadfile`
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -26,7 +27,7 @@ const FileState = (props) => {
 
     const getallfiles = async () => {
         //Api Call
-        const url = `http://localhost:5000/api/file/getallfiles`
+        const url = `${BASE_URL}/api/file/getallfiles`
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -41,7 +42,7 @@ const FileState = (props) => {
     //Delete a file
     const deletefile = async (id) => {
         //Api call to delete the data from the database
-        const url = `http://localhost:5000/api/file/deletefile/${id}`
+        const url = `${BASE_URL}/api/file/deletefile/${id}`
         const response = await fetch(url, {// eslint-disable-line
             method: 'DELETE',
             headers: {

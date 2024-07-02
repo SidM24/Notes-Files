@@ -40,12 +40,12 @@ function App() {
             </div>
             <div className="containerr" style={{ marginTop: '8vh' }}>
               <Routes>
-                <Route path="/" element={<MainPage showAlert={showAlert}></MainPage>} />
-                <Route path="/home" element={<Home showAlert={showAlert}></Home>} />
-                <Route path="/login" element={<Login showAlert={showAlert}></Login>} />
-                <Route path="/about" element={<FileUpload showAlert={showAlert}></FileUpload>} />
-                <Route path="/signup" element={<Signup showAlert={showAlert}></Signup>} />
-                <Route path="/userDetails" element={<UserDetails showAlert={showAlert}></UserDetails>} />
+                <Route exact path="/" element={<MainPage showAlert={showAlert}></MainPage>} />
+                <Route exact path="/home" element={<Home showAlert={showAlert}></Home>} />
+                <Route exact path="/login" element={<Login showAlert={showAlert}></Login>} />
+                <Route exact path="/about" element={<FileUpload showAlert={showAlert}></FileUpload>} />
+                <Route exact path="/signup" element={<Signup showAlert={showAlert}></Signup>} />
+                <Route exact path="/userDetails" element={<UserDetails showAlert={showAlert}></UserDetails>} />
               </Routes>
             </div>
           </Router>

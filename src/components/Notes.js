@@ -37,6 +37,8 @@ const Notes = (props) => {
     }, []);
 
 
+    /* eslint-disable */
+
     //The below use effect would render the notes only on the first render due to empty [] at last
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -47,8 +49,9 @@ const Notes = (props) => {
         else {
             navigate('/signup')
         }
-    }, [getnotes, getUser, navigate])
+    }, [])
 
+    /* eslint-enable */
 
     //ref is used to keep values between render as after render all values are reset except the ref
     //useRef is a hook

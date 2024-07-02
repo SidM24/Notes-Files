@@ -14,7 +14,7 @@ import Signup from './components/Signup';
 import FileUpload from './components/FileUpload';
 import FileState from './context/FileState';
 import UserDetails from './components/UserDetails';
-import MainPage from './components/MainPage';
+// import MainPage from './components/MainPage';
 
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
             </div>
             <div className="containerr" style={{ marginTop: '8vh' }}>
               <Routes>
-                <Route exact path="/" element={<MainPage showAlert={showAlert}></MainPage>} />
+                <Route exact path="/" element={<Home showAlert={showAlert}></Home>} />
                 <Route exact path="/home" element={<Home showAlert={showAlert}></Home>} />
                 <Route exact path="/login" element={<Login showAlert={showAlert}></Login>} />
                 <Route exact path="/about" element={<FileUpload showAlert={showAlert}></FileUpload>} />

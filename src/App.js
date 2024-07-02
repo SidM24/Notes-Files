@@ -40,7 +40,6 @@ function App() {
             <div className="conatiner" style={{ marginTop: '8vh' }}>
               <Routes>
                 <Route exact path="/" element={<Home showAlert={showAlert}></Home>} />
-                <Route exact path="/home" element={<Home showAlert={showAlert}></Home>} />
                 <Route exact path="/login" element={<Login showAlert={showAlert}></Login>} />
                 <Route exact path="/signup" element={<Signup showAlert={showAlert}></Signup>} />
                 <Route exact path="/about" element={<FileUpload showAlert={showAlert}></FileUpload>} />

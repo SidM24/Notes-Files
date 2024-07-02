@@ -14,6 +14,7 @@ import Signup from './components/Signup';
 import FileUpload from './components/FileUpload';
 import FileState from './context/FileState';
 import UserDetails from './components/UserDetails';
+import MainPage from './components/MainPage';
 
 
 function App() {
@@ -37,9 +38,9 @@ function App() {
               <Navbar></Navbar>
               <Alert alert={alert}></Alert>
             </div>
-            <div className="container" style={{ marginTop: '8vh' }}>
+            <div className="containerr" style={{ marginTop: '8vh' }}>
               <Routes>
-                <Route path="/" element={<Login showAlert={showAlert}></Login>} />
+                <Route path="/" element={<MainPage showAlert={showAlert}></MainPage>} />
                 <Route path="/home" element={<Home showAlert={showAlert}></Home>} />
                 <Route path="/login" element={<Login showAlert={showAlert}></Login>} />
                 <Route path="/about" element={<FileUpload showAlert={showAlert}></FileUpload>} />

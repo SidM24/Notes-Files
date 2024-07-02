@@ -4,6 +4,8 @@ import AddNote from './AddNote'
 import NoteItem from './NoteItem'
 import { useNavigate } from 'react-router-dom'
 
+const BASE_URL = "https://notes-files-kzr6.onrender.com"
+
 const Notes = (props) => {
 
     const { showAlert } = props
@@ -19,7 +21,7 @@ const Notes = (props) => {
 
     //Fetching the user details using the getuser route
     const getUser = useCallback(async () => {
-        const url = `http://localhost:5000/api/auth/getuser`
+        const url = `${BASE_URL}/api/auth/getuser`
         const response = await fetch(url, {
             method: 'POST',
             headers: {

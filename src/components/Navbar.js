@@ -19,9 +19,9 @@ const Navbar = () => {
         navigate("/login")
     }
 
-    const gotouserdetails = (e) => {
-        navigate("/userDetails")
-    }
+    // const gotouserdetails = (e) => {
+    //     navigate("/userDetails")
+    // }
 
     return (
         <div>

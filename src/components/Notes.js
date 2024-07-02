@@ -25,7 +25,7 @@ const Notes = (props) => {
         else {
             navigate('/login')
         }
-    }, [])
+    }, [getnotes,getUser,navigate])
 
 
     //ref is used to keep values between render as after render all values are reset except the ref

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mongoURI = "mongodb+srv://Dr_Legend:IFUckcELIqJhqURu@siddhartapi.k3yanvh.mongodb.net/?retryWrites=true&w=majority&appName=SiddhartAPI";
+const mongoURI = process.env.DATABASE;
+// const mongoURI = "mongodb+srv://Dr_Legend:IFUckcELIqJhqURu@siddhartapi.k3yanvh.mongodb.net/?retryWrites=true&w=majority&appName=SiddhartAPI";
 
 
 mongoose.set('strictQuery', true);

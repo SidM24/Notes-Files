@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import bgImg from '../Images/bg.jpg'
 
+const BASE_URL = "https://notes-files-kzr6.onrender.com"
+
 const Signup = (props) => {
 
     const [userInfo, setUserInfo] = useState({ name: "", username: "", email: "", password: "" })
@@ -18,7 +20,7 @@ const Signup = (props) => {
         else if (userInfo.username.length < 5) { props.showAlert("Username should have atleast 5 characters") }
         else if (userInfo.password.length < 8) { props.showAlert("Password should have atleast 8 characters") }
         else {
-            const url = `http://localhost:5000/api/auth/createuser`
+            const url = `${BASE_URL}/api/auth/createuser`
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {

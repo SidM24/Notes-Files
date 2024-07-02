@@ -6,6 +6,8 @@ import userIcon from '../Images/userIcon.png'
 import passwordIcon from '../Images/padlock.png'
 import background from '../Images/bg.jpg'
 
+const BASE_URL = "https://notes-files-kzr6.onrender.com"
+
 const Login = (props) => {
 
     const [userInfo, setuserInfo] = useState({ id: "", password: "" })
@@ -18,7 +20,7 @@ const Login = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const url = `http://localhost:5000/api/auth/login`
+        const url = `${BASE_URL}/api/auth/login`
         const response = await fetch(url, {
             method: 'POST',
             headers: {

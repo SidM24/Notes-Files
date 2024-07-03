@@ -7,6 +7,7 @@ import FileItem from './FileItem'
 
 const FileUpload = (props) => {
 
+  const BASE_URL = "https://notes-files-kzr6.onrender.com"
   const closeAddFile = useRef(null)
   const fileInputRef = useRef(null)
 
@@ -36,7 +37,7 @@ const FileUpload = (props) => {
   }, [])// eslint-disable-line
 
   const getUser = async () => {
-    const url = `http://localhost:5000/api/auth/getuser`
+    const url = `${BASE_URL}/api/auth/getuser`
     const response = await fetch(url, {
       method: 'POST',
       headers: {
